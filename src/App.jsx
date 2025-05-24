@@ -13,7 +13,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchContact());
-  }, []);
+  }, [dispatch]);
   return (
     <div className='container'>
      <div className='phoneBook'>
