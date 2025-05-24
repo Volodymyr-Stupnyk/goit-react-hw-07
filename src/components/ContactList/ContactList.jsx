@@ -1,23 +1,25 @@
 import Contact from '../Contact/Contact';
 import css from './ContactList.module.css';
 import { useSelector } from 'react-redux';
+import { selectError, selectFilteredContacts } from '../../redux/contactsSlice';
 
 const ContactList = () => {
-    const contacts = useSelector(state => state.contacts.item);
-    const search = useSelector(state => state.filters.name);
-    const filteredContacts = contacts?.filter(contact =>
-        contact.name.toLowerCase().includes(search.toLowerCase())
-    );
+    const error = useSelector(selectError)
+    const filteredContacts = useSelector(selectFilteredContacts)
+    if (!filteredContacts.length && !error) 
+        return <p> Add your first contact.</p>
+
     return (
-        <ul className={css.container}>
+        <ul className={css.list}>
             {filteredContacts?.map(contact => (
                 <Contact
-                    key={contact.id}
                     contact={contact}
+                    key={contact.id}
                 />
             ))}
         </ul>
     );
 };
+
 
 export default ContactList;
